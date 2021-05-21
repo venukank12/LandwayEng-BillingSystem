@@ -137,7 +137,9 @@ $minpast = $_POST['minpast'];
 	setcookie('d8fcfbbe6d73da33246ff41850eb4d6e','',time()-3600);
 	unset($_SESSION['dashbord']);
     $data['msg'] ='autosuccs';
-	}else{}
+	}else{
+$data['msg'] ='none';
+}
 	
     echo json_encode($data);
 }
@@ -404,22 +406,23 @@ $lt_date = $_POST['ld'];
         $fetch_details = "SELECT `name`, `status`, `date`, `effdate`, `sum` FROM `bills` WHERE `billid`='$c'";
         $fetch_run = mysqli_query($connect,$fetch_details);
         $details = mysqli_fetch_assoc($fetch_run);
-        $data['table'][$i]['name'] = $details['name'];
-        $data['table'][$i]['status'] = $details['status'];
-        $data['table'][$i]['date'] = $details['date'];
-        $data['table'][$i]['effdate'] = $details['effdate'];
-        $data['table'][$i]['sum'] = $details['sum'];
-        $data['table'][$i]['id'] = $c;
+        $data['name'][$i] = $details['name'];
+        $data['status'][$i] = $details['status'];
+        $data['date'][$i] = $details['date'];
+        $data['effdate'][$i] = $details['effdate'];
+        $data['sum'][$i] = $details['sum'];
+        $data['id'][$i] = $c;
         $i++;
         $c++;
     }
-     $data['hescr'] = '<h2 align="center">VIEW BILLS</h2><div class="vhead"><div class="vhsub1">No</div><div class="vhsub2">Bill Name</div><div class="vhsub3">Bill Status</div><div class="vhsub4">Date</div><div class="vhsub4">Effective Date</div><div class="vhsub5">Sum</div><div class="vhsub6">View</div></div>';
-     $data['maxrun'] = $i--;
-     $data['msg'] = 'succ';
-     }else{
-     $data['msg'] = 'no';
+    $data['hescr'] = '<h2 align="center">VIEW BILLS</h2><div class="vhead"><div class="vhsub1">No</div><div class="vhsub2">Bill Name</div><div class="vhsub3">Bill Status</div><div class="vhsub4">Date</div><div class="vhsub4">Effective Date</div><div class="vhsub5">Sum</div><div class="vhsub6">View</div>
+</div>';
+    $data['maxrun'] = $i--;
+    $data['msg'] = 'succ';
+    }else{
+    $data['msg'] = 'no';
     }
-    echo json_encode($data,JSON_PRETTY_PRINT);
+    echo json_encode($data);
 }
 
 function vwflbldil($connect){
